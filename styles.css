@@ -1,0 +1,140 @@
+/* Variables CSS */
+:root {
+    --text-color: #333333;
+    --button-color: #0474b4; 
+}
+
+/* AJUSTE CLAVE: El body apila y centra el contenido, y tiene el padding general */
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Apilar H1, P y FORM verticalmente */
+    justify-content: flex-start; /* Contenido comienza desde arriba (mejor para formularios) */
+    align-items: center; /* Centrar horizontalmente */
+    padding: 2rem 1rem; /* Padding responsivo: 2rem arriba/abajo, 1rem a los lados */
+    overflow-x: hidden;
+}
+
+/* Animación de desvanecido (fade-in-page) */
+.fade-in-page {
+    animation: fadeIn 0.9s ease-out forwards;
+    opacity: 0;
+}
+
+/* Estilo para el botón / CTA (btn-primary) */
+.btn-primary {
+    background-color: var(--button-color);
+    color: white;
+    border-radius: 0; 
+    transition: all 0.3s ease-in-out;
+    border: 2px solid var(--button-color);
+    font-weight: 900;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background-color: white;
+    color: var(--button-color);
+    border-color: var(--button-color);
+}
+
+/* Estilo general de los campos de formulario */
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    transition: border-color 0.3s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--button-color);
+    box-shadow: 0 0 0 1px var(--button-color);
+}
+
+/* Estilos para etiquetas y contenedores */
+.label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    opacity: 0.85;
+}
+
+/* Estilo para el asterisco rojo */
+.asterisk {
+    color: #dc2626; /* red-600 */
+    margin-left: 0.25rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+/* Keyframes para la animación de desvanecido */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilo para los inputs de radio/checkbox y sus etiquetas */
+.radio-label-container {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.radio-label-container:hover {
+    background-color: #f7f7f7;
+}
+
+.radio-label-container input[type="radio"],
+.radio-label-container input[type="checkbox"] {
+    margin-right: 0.75rem;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.radio-label-container input[type="radio"]:checked,
+.radio-label-container input[type="checkbox"]:checked {
+    background-color: var(--button-color);
+    border-color: var(--button-color);
+}
+
+/* Para el estado visual de "checked" en radio buttons */
+.radio-label-container input[type="radio"]:checked:after {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    margin: 5px;
+    background: white;
+    border-radius: 50%;
+}
+
+/* Para el estado visual de "checked" en checkbox */
+.radio-label-container input[type="checkbox"]:checked:after {
+    content: '✓';
+    display: block;
+    font-size: 14px;
+    line-height: 16px;
+    color: white;
+    text-align: center;
+    margin-top: -1px;
+}

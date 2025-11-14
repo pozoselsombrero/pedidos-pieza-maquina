@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body class="fade-in-page">
+    
+    <h1 class="text-3xl sm:text-4xl font-black mb-2 text-center leading-tight max-w-2xl w-full px-4 sm:px-0">
+        Realiza tu Pedido
+    </h1>
+    <p class="text-base sm:text-lg mb-4 opacity-85 text-center max-w-2xl mx-auto w-full px-4 sm:px-0">
+        Por favor, rellena el siguiente formulario para especificar que necesitas.
+    </p>
+
+    <p class="text-sm text-center mb-6 text-gray-600 max-w-2xl mx-auto w-full px-4 sm:px-0">
+        Los campos marcados con un<span class="asterisk">*</span> son obligatorios. 
+    </p>
+
+    <form id="solicitudForm" 
+          action="https://formsubmit.co/miguelmpc1996@gmail.com,pozoselsombrero@gmail.com" 
+          method="POST" 
+          onsubmit="return validateForm()" 
+          enctype="multipart/form-data"
+          class="max-w-2xl mx-auto w-full p-6 sm:p-8 bg-white shadow-xl">
+        
+        <div class="mb-6">
+            <label for="email" class="label">Correo<span class="asterisk">*</span></label>
+            <input type="email" name="email" id="email" class="form-input" placeholder="ejemplo@dominio.com" required>
+            <p id="emailError" class="text-red-600 text-sm mt-1 hidden">Por favor, ingresa un correo electrónico válido.</p>
+        </div>
+
+        <div class="mb-6">
+            <label for="whatsapp" class="label">WhatsApp<span class="asterisk">*</span></label>
+            <input type="text" name="WhatsApp" id="whatsapp" class="form-input" placeholder="Ej: +584125550000" pattern="[0-9]*" title="Solo se permiten números" required>
+            <p class="text-sm opacity-75 mt-1">Incluye código de país (Ej: +58...).</p>
+        </div>
+
+        <div class="mb-6 border p-4">
+            <p class="label mb-3">¿De Cuánto es tu Presupuesto (en Dólares Estadounidenses)?<span class="asterisk">*</span></p>
+            
+            <div class="radio-label-container">
+                <input type="radio" name="Presupuesto" id="budget1" value="Menos de $500" required>
+                <label for="budget1">Menos de $1,000</label>
+            </div>
+            <div class="radio-label-container">
+                <input type="radio" name="Presupuesto" id="budget2" value="De $1000 a $3000" required>
+                <label for="budget2">De $1,000 a $3,000</label>
+            </div>
+            <div class="radio-label-container">
+                <input type="radio" name="Presupuesto" id="budget3" value="De $3000 a $5000" required>
+                <label for="budget3">De $3,000 a $5,000</label>
+            </div>
+            <div class="radio-label-container">
+                <input type="radio" name="Presupuesto" id="budget4" value="Más de $5000" required>
+                <label for="budget4">Más de $5,000</label>
+            </div>
+        </div>
+        
+        <div class="mb-6">
+            <label for="referenceFile" class="label">Sube la Foto de la Pieza/Máquina que buscas (Si tienes)</label>
+            <input type="file" name="Archivo_Referencia" id="referenceFile" class="form-input p-2 bg-gray-50 border-dashed border-gray-300" accept=".jpg, .jpeg, .png, .pdf">
+            <p class="text-sm opacity-75 mt-1">Sube un archivo (JPG, PNG,PDF) como referencia.</p>
+        </div>
+
+
+        <div class="mb-6 border p-4">
+            <p class="label mb-3">¿Qué necesitas?<span class="asterisk">*</span></p>
+            
+            <div class="radio-label-container">
+                <input type="radio" name="Tipo_Requerimiento" id="req_perforadora" value="Perforadora" required>
+                <label for="req_perforadora">Perforadora (Máquina Completa)</label>
+            </div>
+            <div class="radio-label-container">
+                <input type="radio" name="Tipo_Requerimiento" id="req_pieza" value="Pieza" required>
+                <label for="req_pieza">Pieza o Componente</label>
+            </div>
+        </div>
+
+        <div id="perforadoraSection" class="hidden mb-6 p-4 border-l-4 border-blue-400 bg-blue-50">
+            <label for="descripcionPerforadora" class="label text-blue-800">Descripción de la Perforadora<span class="asterisk">*</span></label>
+            <textarea name="Descripcion_Perforadora" id="descripcionPerforadora" class="form-input" rows="4" maxlength="500" placeholder="Ej: Necesito una perforadora con capacidad de hasta 100m, con motor diésel y que sea compacta para espacios reducidos." required></textarea>
+            <p class="text-sm opacity-75 mt-1 text-blue-700">Máximo 500 caracteres para describir el modelo y capacidades que requieres.</p>
+        </div>
+
+        <div id="piezaSection" class="hidden mb-6 p-4 border-l-4 border-blue-400 bg-blue-50">
+            <p class="label text-blue-800 mb-3">Selecciona uno o más elementos que necesitas:</p>
+            
+            <div class="flex flex-wrap -mx-2">
+                <div class="w-full sm:w-1/2 px-2">
+                    <div class="radio-label-container">
+                        <input type="checkbox" name="Piezas_Requeridas[]" id="part1" value="Estructura">
+                        <label for="part1">Estructura</label>
+                    </div>
+                    <div class="radio-label-container">
+                        <input type="checkbox" name="Piezas_Requeridas[]" id="part2" value="Swivel (Inyector)">
+                        <label for="part2">Swivel (Inyector)</label>
+                    </div>
+                    <div class="radio-label-container">
+                        <input type="checkbox" name="Piezas_Requeridas[]" id="part3_a" value="Mechas">
+                        <label for="part3_a">Mechas</label>
+                    </div>
+                </div>
+                <div class="w-full sm:w-1/2 px-2">
+                    <div class="radio-label-container">
+                        <input type="checkbox" name="Piezas_Requeridas[]" id="part3_b" value="Brocas">
+                        <label for="part3_b">Brocas</label>
+                    </div>
+                    <div class="radio-label-container">
+                        <input type="checkbox" name="Piezas_Requeridas[]" id="part3_c" value="Ahoyador">
+                        <label for="part3_c">Ahoyador</label>
+                    </div>
+                    <div class="radio-label-container">
+                        <input type="checkbox" name="Piezas_Requeridas[]" id="part4" value="Bomba de Agua">
+                        <label for="part4">Bomba de Agua</label>
+                    </div>
+                     <div class="radio-label-container">
+                        <input type="checkbox" name="Piezas_Requeridas[]" id="part5" value="Otros" id="checkboxOtros">
+                        <label for="part5" class="font-bold">Otros</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="otroPiezaSection" class="hidden mt-4 pt-4 border-t border-blue-200">
+                <label for="descripcionOtraPieza" class="label text-blue-800">Pieza Específica<span class="asterisk">*</span> </label>
+                <textarea name="Descripcion_Otra_Pieza" id="descripcionOtraPieza" class="form-input" rows="2" maxlength="200" placeholder="Ej: Mangueras hidráulicas de alta presión, modelo K-20." disabled></textarea>
+                <p class="text-sm opacity-75 mt-1 text-blue-700">Máximo 200 caracteres.</p>
+            </div>
+
+        </div>
+
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="URL_DE_REDIRECCION_AQUI">
+        <input type="hidden" name="_autoresponse" value="¡Gracias por tu solicitud! Hemos recibido tu información y te contactaremos pronto.">
+        <input type="hidden" name="_replyto" value="email"> 
+
+        <button type="submit" class="btn-primary w-full py-3 px-8 uppercase mt-6 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50">
+            Enviar Solicitud
+        </button>
+    </form>
+    
+    <script src="scripts.js"></script>
+
+</body>
+</html>
